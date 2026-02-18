@@ -15,13 +15,21 @@ public class Scheduler {
         driver = new ChromeDriver();
         driver.get(URL);
     }
+
     public WebDriver getDriver() {
         return this.driver;
     }
+
     public void clickOnClasses() {
         driver.findElement(By.xpath("//span[@title='Klases']")).click();
     }
+
     public void clickOnTeachers() {
         driver.findElement(By.xpath("//span[@title='Skolotāji']")).click();
+    }
+
+    public void clickOnSelectTimeTablesWeek() {
+        driver.findElement(By.xpath("//span[@title='Ikdienas saraksts']")).click();
+
     }
 }

@@ -17,8 +17,12 @@ public class Main {
         List<WebElement> classes = driver.findElements(By.cssSelector(".dropDownPanel > li > a"));
         scheduler.clickOnTeachers();
         List<WebElement> teachers = driver.findElements(By.cssSelector(".dropDownPanel > li > a"));
+        scheduler.clickOnSelectTimeTablesWeek();
+        List<WebElement> timeTableWeeks = driver.findElements(By.cssSelector(".dropDownPanel > li > a"));
+        for (WebElement webElement : timeTableWeeks) {
+            System.out.println(webElement.getText());
+        }
         
-
         driver.quit();
     }
 }
