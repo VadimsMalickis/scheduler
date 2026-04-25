@@ -1,12 +1,10 @@
 package lv.rvt;
 
 public class Scheduler {
-    private UI ui;
     private Browser browser;
 
-    public Scheduler() {
-        // this.ui = new UI();
-        this.browser = new Browser();
+    public Scheduler(boolean headless) {
+        this.browser = new Browser(headless);
     }
     public Browser getBrowser() {
         return this.browser;

@@ -5,22 +5,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.openqa.selenium.chrome.ChromeOptions;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Browser {
     private WebDriver driver;
     private static final String URL = "https://pikcrvt.edupage.org/timetable/";
 
-    public Browser() {
+    public Browser(boolean headless) {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        if (headless) {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless=new"); // modern headless mode
+            options.addArguments("--window-size=1920,1080");
+            options.addArguments("--disable-gpu"); // mostly for Windows stability
+            options.addArguments("--no-sandbox"); // often useful in CI
+            options.addArguments("--disable-dev-shm-usage");
+            driver = new ChromeDriver(options);
+        } else {
+            driver = new ChromeDriver();
+        }
         driver.get(URL);
     }
 
@@ -82,5 +89,10 @@ public class Browser {
             timeTableWeeks.add(webElement.getText());
         }
         return timeTableWeeks;
+    }
+
+    public WebElement getSVGTimeTable() {
+        WebElement svgElement = driver.findElement(By.cssSelector("svg"));
+        return svgElement;
     }
 }
